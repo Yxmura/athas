@@ -362,6 +362,19 @@ export const AppearanceSettings = () => {
         </SettingRow>
 
         <SettingRow
+          label="Reduce Motion"
+          description="Minimize animations throughout the app"
+          onReset={() => updateSetting("reducedMotion", getDefaultSetting("reducedMotion"))}
+          canReset={settings.reducedMotion !== getDefaultSetting("reducedMotion")}
+        >
+          <Switch
+            checked={settings.reducedMotion}
+            onChange={(checked) => updateSetting("reducedMotion", checked)}
+            size="sm"
+          />
+        </SettingRow>
+
+        <SettingRow
           label="Title Bar Project Mode"
           description="Show project tabs or a single window-style title in the custom title bar"
           onReset={() =>

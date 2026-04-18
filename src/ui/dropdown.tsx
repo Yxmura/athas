@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useSettingsStore } from "@/features/settings/store";
 import { buttonVariants } from "@/ui/button";
 import Input from "@/ui/input";
 import { cn } from "@/utils/cn";
@@ -127,6 +128,23 @@ export function MenuPopover({
   transition = { duration: 0.12, ease: "easeOut" as const },
 }: MenuPopoverProps) {
   if (typeof document === "undefined") return null;
+
+  const reducedMotion = useSettingsStore.getState().settings.reducedMotion;
+
+  if (reducedMotion) {
+    const node = isOpen ? (
+      <div
+        ref={menuRef}
+        onMouseDown={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
+        className={cn(dropdownRootVariants(), className)}
+        style={style}
+      >
+        {children}
+      </div>
+    ) : null;
+    return createPortal(node, portalContainer ?? document.body);
+  }
 
   const node = isOpen ? (
     <motion.div

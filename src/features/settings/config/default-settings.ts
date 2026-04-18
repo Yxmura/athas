@@ -108,6 +108,8 @@ export const defaultSettings: Settings = {
   enableGitGutter: true,
   // Telemetry
   telemetry: false,
+  // Accessibility
+  reducedMotion: false,
 };
 
 export const getDefaultSetting = <K extends keyof Settings>(key: K): Settings[K] =>

@@ -1,4 +1,5 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useSettingsStore } from "@/features/settings/store";
 import { useOnboardingStore } from "@/features/onboarding/store";
 import { FontStyleInjector } from "@/features/settings/components/font-style-injector";
 import { useAutoUpdate } from "@/features/settings/hooks/use-auto-update";
@@ -14,6 +15,16 @@ import { TooltipProvider } from "./ui/tooltip";
 import { WindowResizeBorder } from "./features/window/components/window-resize-border";
 
 function App() {
+  const reducedMotion = useSettingsStore.getState().settings.reducedMotion;
+
+  useEffect(() => {
+    if (reducedMotion) {
+      document.documentElement.classList.add("reduced-motion");
+    } else {
+      document.documentElement.classList.remove("reduced-motion");
+    }
+  }, [reducedMotion]);
+
   // Auto-update check
   const {
     showDialog: showUpdateDialog,

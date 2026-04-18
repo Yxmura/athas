@@ -103,4 +103,6 @@ export interface Settings {
   enableGitGutter: boolean;
   // Telemetry
   telemetry: boolean;
+  // Accessibility
+  reducedMotion: boolean;
 }
